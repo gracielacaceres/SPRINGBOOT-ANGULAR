@@ -1,0 +1,54 @@
+<h2 class="mb-4 text-center text-primary font-weight-bold animated fadeIn">Lista de Productos</h2>
+
+<!-- Botones para filtrar productos activos, inactivos y todos -->
+<div class="mb-3">  <!-- Cambiado <class> a <div> -->
+  <button mat-raised-button color="primary" (click)="filtrarProductos('activos')">Activos</button>
+  <button mat-raised-button color="warn" (click)="filtrarProductos('inactivos')">Inactivos</button>
+  <button mat-raised-button (click)="filtrarProductos('todos')">Todos</button>
+  <button mat-raised-button color="success" (click)="abrirDialogoAgregarProducto()">Agregar Producto</button>  <!-- Cambiado a abrirDialogoAgregarProducto -->
+  <button mat-raised-button color="danger" routerLink="/dashboard">Regresar Dashboard</button>
+</div>
+
+<!-- Tabla de productos -->
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imagen</th>
+            <th>Código de Barra</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Stock</th>
+            <th>Unidad de Medida</th>
+            <th>Fecha de Ingreso</th>
+            <th>Fecha de Expiración</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let producto of productos">
+            <td>{{ producto.idProducto }}</td>
+            <td><img [src]="producto.imagen" alt="Imagen del producto" width="50"></td>
+            <td>{{ producto.codigoBarra }}</td>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td>{{ producto.precio | currency }}</td>
+            <td>{{ producto.categoria }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.unidadMedida }}</td>
+            <td>{{ producto.fechaIngreso | date:'dd/MM/yyyy' }}</td>
+            <td>{{ producto.fechaExpiracion | date:'dd/MM/yyyy' }}</td>
+            <td>{{ producto.estado === 1 ? 'Activo' : 'Inactivo' }}</td>
+            <td>
+                <button mat-button color="primary" (click)="editarProducto(producto)">Editar</button>  <!-- Cambiado a editarProducto -->
+                <button *ngIf="producto.estado === 1" mat-button color="warn" (click)="eliminarProducto(producto.idProducto)">Eliminar</button>  <!-- Cambiado a eliminarProducto -->
+                <button *ngIf="producto.estado === 0" mat-button color="accent" (click)="recuperarProducto(producto.idProducto)">Recuperar</button>  <!-- Cambiado a recuperarProducto -->
+            </td>
+        </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,106 @@
+<h2 mat-dialog-title>Agregar Producto</h2>
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+
+    <mat-form-field appearance="outline" class="custom-field">
+      <mat-label>Imagen (URL)</mat-label>
+      <input matInput formControlName="imagen" placeholder="URL de la imagen">
+      <mat-error *ngIf="form.get('imagen')?.hasError('required')">La URL de la imagen es requerida.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="custom-field">
+      <mat-label>Código de Barra</mat-label>
+      <input matInput formControlName="codigoBarra" placeholder="Código de barra">
+      <mat-error *ngIf="form.get('codigoBarra')?.hasError('required')">El código de barra es requerido.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="custom-field">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" placeholder="Nombre del producto">
+      <mat-error *ngIf="form.get('nombre')?.hasError('required')">El nombre es requerido.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="custom-field">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descripcion" placeholder="Descripción del producto"></textarea>
+      <mat-error *ngIf="form.get('descripcion')?.hasError('required')">La descripción es requerida.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="custom-field">
+      <mat-label>Precio</mat-label>
+      <input matInput formControlName="precio" type="number" min="0" placeholder="Precio">
+      <mat-error *ngIf="form.get('precio')?.hasError('required')">El precio es requerido.</mat-error>
+      <mat-error *ngIf="form.get('precio')?.hasError('min')">El precio debe ser mayor a 0.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="custom-field">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="categoria">
+        <mat-option value="cuidado_cabello">Cabello</mat-option>
+        <mat-option value="herramientas">Herramientas</mat-option>
+        <mat-option value="accesorios">Accesorios</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('categoria')?.hasError('required')">La categoría es requerida.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="custom-field">
+      <mat-label>Stock</mat-label>
+      <input matInput formControlName="stock" type="number" min="0" placeholder="Cantidad en stock">
+      <mat-error *ngIf="form.get('stock')?.hasError('required')">El stock es requerido.</mat-error>
+      <mat-error *ngIf="form.get('stock')?.hasError('min')">El stock debe ser un número positivo.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="custom-field">
+      <mat-label>Unidad de Medida</mat-label>
+      <input matInput formControlName="unidadMedida" placeholder="Unidad de medida">
+      <mat-error *ngIf="form.get('unidadMedida')?.hasError('required')">La unidad de medida es requerida.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="custom-field">
+      <mat-label>Fecha de Ingreso</mat-label>
+      <input matInput [matDatepicker]="ingresoPicker" formControlName="fechaIngreso" placeholder="Fecha de ingreso">
+      <mat-datepicker-toggle matSuffix [for]="ingresoPicker"></mat-datepicker-toggle>
+      <mat-datepicker #ingresoPicker></mat-datepicker>
+      <mat-error *ngIf="form.get('fechaIngreso')?.hasError('required')">La fecha de ingreso es requerida.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="custom-field">
+      <mat-label>Fecha de Expiración</mat-label>
+      <input matInput [matDatepicker]="expiracionPicker" formControlName="fechaExpiracion" placeholder="Fecha de expiración">
+      <mat-datepicker-toggle matSuffix [for]="expiracionPicker"></mat-datepicker-toggle>
+      <mat-datepicker #expiracionPicker></mat-datepicker>
+      <mat-error *ngIf="form.get('fechaExpiracion')?.hasError('required')">La fecha de expiración es requerida.</mat-error>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="estado" class="checkbox-field">Activo</mat-checkbox>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="cancelar()" class="action-button">Cancelar</button>
+      <button mat-button color="primary" type="submit" [disabled]="form.invalid" class="action-button">Agregar</button>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<!-- Agrega el CSS -->
+<style>
+  .dialog-content {
+    padding: 16px;
+    max-width: 500px;
+  }
+  .custom-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .checkbox-field {
+    margin-top: 16px;
+  }
+  .action-button {
+    margin-right: 8px;
+    font-weight: bold;
+  }
+  mat-dialog-content {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+</style>
+ 
